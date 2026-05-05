@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Apu Luxury Vendedor</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/vendedor.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="vendedor-page">
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-logo"><img src="../../image/Logo-Apu-Luxury-dorado-negro.png" alt="APU"></div>
+            <nav class="sidebar-menu">
+                <p class="sidebar-menu-title">Inicio</p>
+                <a href="dashboard.html" class="sidebar-menu-item"><i class="fas fa-home"></i><span>Inicio</span></a>
+                <a href="estadisticas.html" class="sidebar-menu-item"><i class="fas fa-chart-line"></i><span>Estadísticas</span></a>
+                <p class="sidebar-menu-title">Productos</p>
+                <a href="productos.html" class="sidebar-menu-item active"><i class="fas fa-plus-circle"></i><span>Agregar Producto</span></a>
+                <a href="inventario.html" class="sidebar-menu-item"><i class="fas fa-boxes"></i><span>Inventario</span></a>
+                <p class="sidebar-menu-title">Pedidos</p>
+                <a href="pedidos.html" class="sidebar-menu-item"><i class="fas fa-shopping-cart"></i><span>Todos los Pedidos</span></a>
+                <p class="sidebar-menu-title">Exportación</p>
+                <a href="exportacion.html" class="sidebar-menu-item"><i class="fas fa-shipping-fast"></i><span>Métodos de Envío</span></a>
+                <a href="documentacion.html" class="sidebar-menu-item"><i class="fas fa-file-alt"></i><span>Documentación</span></a>
+                <p class="sidebar-menu-title">Configuración</p>
+                <a href="perfil.html" class="sidebar-menu-item"><i class="fas fa-store"></i><span>Perfil</span></a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left"><h1 class="header-title">Productos</h1></div>
+                <div class="header-right">
+                    <button class="notification-btn"><i class="fas fa-bell"></i><span class="badge">3</span></button>
+                    <div class="user-profile">
+                        <img src="https://via.placeholder.com/40" alt="Usuario" class="user-avatar">
+                        <div><p class="user-name">Vendedor</p><p class="user-role">Vendedor</p></div>
+                    </div>
+                </div>
+            </header>
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">Mis Productos</h2>
+                    <button class="btn btn-primary" onclick="abrirProductoModal()">+ AGREGAR PRODUCTO</button>
+                </div>
+                <table class="data-table">
+                    <thead><tr><th>Producto</th><th>Categoría</th><th>Precio</th><th>Stock</th><th>Estado</th><th>Acciones</th></tr></thead>
+                    <tbody id="productosTable"></tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+    <div class="modal-overlay" id="productoModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitulo">Agregar Producto</h3>
+                <button class="modal-close" onclick="cerrarModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="formProducto" class="modal-form">
+                    <div class="form-group full-width">
+                        <label class="form-label">Nombre del Producto</label>
+                        <input type="text" id="productoNombre" class="form-input" placeholder="Poncho Inti Raymi">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Categoría</label>
+                        <select id="productoCategoria" class="form-select">
+                            <option value="abrigos">Abrigos & Ponchos</option>
+                            <option value="chompas">Chompas & Sweaters</option>
+                            <option value="accesorios">Accesorios</option>
+                            <option value="vestidos">Vestidos & Faldas</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Precio (S/)</label>
+                        <input type="number" id="productoPrecio" class="form-input" placeholder="380">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Stock</label>
+                        <input type="number" id="productoStock" class="form-input" placeholder="15">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Material</label>
+                        <input type="text" id="productoMaterial" class="form-input" placeholder="100% Alpaca Baby">
+                    </div>
+                    <div class="form-group full-width">
+                        <label class="form-label">Descripción</label>
+                        <textarea id="productoDescripcion" class="form-input" rows="3" placeholder="Descripción del producto..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-dark" onclick="cerrarModal()">CANCELAR</button>
+                <button class="btn btn-primary" onclick="guardarProducto()">GUARDAR PRODUCTO</button>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/js/storage.js"></script>
+    <script src="../assets/js/vendedor.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function(){cargarVendedor();const productos=obtenerProductos().filter(p=>p.vendedor===(vendedorActual?.id));document.getElementById('productosTable').innerHTML=productos.length?productos.map(p=>`<tr><td><div class="table-product"><img src="${p.imagen}" alt="${p.nombre}" class="table-product-img"><div><p class="table-product-name">${p.nombre}</p><p class="table-product-sku">${p.id}</p></div></div></td><td>${p.categoria}</td><td>S/ ${p.precio}</td><td>${p.stock}</td><td><span class="status-badge ${p.estado==='activo'?'active':'inactive'}">${p.estado.toUpperCase()}</span></td><td><button class="action-btn edit" onclick="abrirProductoModal('${p.id}')"><i class="fas fa-edit"></i></button><button class="action-btn delete" onclick="eliminarProducto('${p.id}')"><i class="fas fa-trash"></i></button></td></tr>`).join(''):'<tr><td colspan="6" style="text-align:center;padding:40px;color:#888;">No hay productos</td></tr>';});function eliminarProducto(id){if(confirm('¿Eliminar producto?')){eliminarElemento('apu_productos',id);location.reload();}}</script>
+</body>
+</html>

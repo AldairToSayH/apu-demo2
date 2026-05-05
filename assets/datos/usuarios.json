@@ -1,0 +1,53 @@
+[
+  {
+    "id": "usr_001",
+    "nombre": "Ana María Quispe",
+    "email": "ana@email.com",
+    "telefono": "+51 984 123 456",
+    "rol": "comprador",
+    "fechaRegistro": "2026-01-15",
+    "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150"
+  },
+  {
+    "id": "usr_002",
+    "nombre": "Carlos Mendoza",
+    "email": "carlos@email.com",
+    "telefono": "+51 987 654 321",
+    "rol": "comprador",
+    "fechaRegistro": "2026-02-01",
+    "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150"
+  },
+  {
+    "id": "vnd_001",
+    "nombre": "María Elena Ccallo",
+    "email": "elena@artescusco.com",
+    "telefono": "+51 984 234 567",
+    "rol": "vendedor",
+    "fechaRegistro": "2026-01-10",
+    "tienda": "Artes Cusco",
+    "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150",
+    "perfilCompleto": true
+  },
+  {
+    "id": "vnd_002",
+    "nombre": "Roberto Huanca",
+    "email": "roberto@andescraft.com",
+    "telefono": "+51 985 345 678",
+    "rol": "vendedor",
+    "fechaRegistro": "2026-01-20",
+    "tienda": "Andes Craft",
+    "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150",
+    "perfilCompleto": true
+  },
+  {
+    "id": "vnd_003",
+    "nombre": "Lucía Sumire",
+    "email": "lucia@textilesmana.com",
+    "telefono": "+51 986 456 789",
+    "rol": "vendedor",
+    "fechaRegistro": "2026-02-05",
+    "tienda": "Textiles Mana",
+    "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150",
+    "perfilCompleto": false
+  }
+]

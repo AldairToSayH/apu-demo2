@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario - Apu Luxury Vendedor</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/vendedor.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="vendedor-page">
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-logo"><img src="../../image/Logo-Apu-Luxury-dorado-negro.png" alt="APU"></div>
+            <nav class="sidebar-menu">
+                <p class="sidebar-menu-title">Inicio</p>
+                <a href="dashboard.html" class="sidebar-menu-item"><i class="fas fa-home"></i><span>Inicio</span></a>
+                <p class="sidebar-menu-title">Productos</p>
+                <a href="productos.html" class="sidebar-menu-item"><i class="fas fa-plus-circle"></i><span>Agregar Producto</span></a>
+                <a href="inventario.html" class="sidebar-menu-item active"><i class="fas fa-boxes"></i><span>Inventario</span></a>
+                <p class="sidebar-menu-title">Pedidos</p>
+                <a href="pedidos.html" class="sidebar-menu-item"><i class="fas fa-shopping-cart"></i><span>Pedidos</span></a>
+                <p class="sidebar-menu-title">Configuración</p>
+                <a href="perfil.html" class="sidebar-menu-item"><i class="fas fa-store"></i><span>Perfil</span></a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="top-header"><div class="header-left"><h1 class="header-title">Inventario</h1></div></header>
+            <section class="content-section">
+                <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr);">
+                    <div class="stat-card"><div class="stat-card-icon green"><i class="fas fa-check"></i></div><p class="stat-card-value" id="stockTotal">0</p><p class="stat-card-label">Total Stock</p></div>
+                    <div class="stat-card"><div class="stat-card-icon orange"><i class="fas fa-exclamation"></i></div><p class="stat-card-value" id="bajoStock">0</p><p class="stat-card-label"> Bajo Stock (≤5)</p></div>
+                    <div class="stat-card"><div class="stat-card-icon pink"><i class="fas fa-times"></i></div><p class="stat-card-value" id="sinStock">0</p><p class="stat-card-label">Sin Stock</p></div>
+                </div>
+                <div class="section-header"><h2 class="section-title">Productos con Bajo Stock</h2></div>
+                <table class="data-table">
+                    <thead><tr><th>Producto</th><th>Stock</th><th>Estado</th></tr></thead>
+                    <tbody id="inventarioTable"></tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+    <script src="../assets/js/storage.js"></script>
+    <script src="../assets/js/vendedor.js"></script>
+    <script>document.addEventListener('DOMContentLoaded',function(){cargarVendedor();const productos=obtenerProductos().filter(p=>p.vendedor===(vendedorActual?.id));const bajoStock=productos.filter(p=>p.stock>0&&p.stock<=5).length;const sinStock=productos.filter(p=>p.stock===0).length;const totalStock=productos.reduce((t,p)=>t+p.stock,0);document.getElementById('stockTotal').textContent=totalStock;document.getElementById('bajoStock').textContent=bajoStock;document.getElementById('sinStock').textContent=sinStock;document.getElementById('inventarioTable').innerHTML=productos.filter(p=>p.stock<=5).length?productos.filter(p=>p.stock<=5).map(p=>`<tr><td>${p.nombre}</td><td>${p.stock}</td><td><span class="status-badge ${p.stock===0?'inactive':p.stock<=5?'pending':'active'}">${p.stock===0?'Sin Stock':p.stock<=5?'Bajo Stock':'Normal'}</span></td></tr>`).join(''):'<tr><td colspan="3" style="text-align:center;padding:40px;color:#888;">Todo el stock está okay</td></tr>';});</script>
+</body>
+</html>

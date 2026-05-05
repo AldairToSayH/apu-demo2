@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Producto - Apu Luxury</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/comprador.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .producto-detalle-section {
+            padding: 100px 50px 60px;
+            background-color: var(--white);
+            min-height: 100vh;
+        }
+        .producto-detalle-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .producto-detalle-imagen {
+            position: relative;
+        }
+        .producto-detalle-imagen img {
+            width: 100%;
+            border-radius: 16px;
+            object-fit: cover;
+        }
+        .producto-detalle-info {
+            color: var(--negro-oscuro);
+        }
+        .producto-detalle-categoria {
+            font-size: 12px;
+            color: var(--orange);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        .producto-detalle-nombre {
+            font-family: var(--font-serif);
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        .producto-detalle-material {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .producto-detalle-precio {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        .producto-detalle-precio del {
+            font-size: 18px;
+            color: #999;
+            margin-left: 10px;
+        }
+        .producto-detalle-opciones {
+            margin-bottom: 30px;
+        }
+        .opcion-grupo {
+            margin-bottom: 20px;
+        }
+        .opcion-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--negro-oscuro);
+            margin-bottom: 10px;
+            display: block;
+        }
+        .opcion-colores {
+            display: flex;
+            gap: 10px;
+        }
+        .opcion-color {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .opcion-color.active {
+            border-color: var(--orange);
+            transform: scale(1.1);
+        }
+        .opcion-tallas {
+            display: flex;
+            gap: 10px;
+        }
+        .opcion-talla {
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        .opcion-talla:hover,
+        .opcion-talla.active {
+            background-color: var(--negro-oscuro);
+            color: var(--white);
+            border-color: var(--negro-oscuro);
+        }
+        .cantidad-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .cantidad-btn {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ddd;
+            background-color: var(--white);
+            border-radius: 6px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .cantidad-input {
+            width: 60px;
+            height: 40px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 16px;
+        }
+        .producto-detalle-acciones {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .producto-detalle-acciones .btn {
+            flex: 1;
+            padding: 16px;
+            text-align: center;
+        }
+        .producto-detalle-vendedor {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: var(--crema);
+            border-radius: 12px;
+        }
+        .vendedor-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .vendedor-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .vendedor-nombre {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--negro-oscuro);
+        }
+        .producto-detalle-descripcion {
+            margin-top: 30px;
+            padding: 25px;
+            background-color: var(--crema);
+            border-radius: 12px;
+        }
+        .descripcion-titulo {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .descripcion-texto {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.7;
+        }
+        .producto-detalles {
+            margin-top: 20px;
+        }
+        .detalle-item {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .detalle-label {
+            width: 120px;
+            font-size: 12px;
+            color: #888;
+        }
+        .detalle-valor {
+            font-size: 13px;
+            font-weight: 600;
+        }
+        @media (max-width: 768px) {
+            .producto-detalle-section {
+                padding: 90px 20px 40px;
+            }
+            .producto-detalle-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body class="comprador-page">
+    <nav class="navbar sticky">
+        <div class="logo">
+            <a href="../index.html">
+                <img src="../image/Logo-Apu-Luxury-dorado-negro.png" alt="Apu Luxury" class="logo-img">
+            </a>
+        </div>
+        <div class="nav-menu">
+            <ul>
+                <li><a href="catalogo.html">CATÁLOGO</a></li>
+                <li><a href="#">COLECCIONES</a></li>
+            </ul>
+        </div>
+        <div class="nav-icons">
+            <a href="carrito.html" class="cart-icon">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-badge" id="cartCount">0</span>
+            </a>
+        </div>
+    </nav>
+
+    <section class="producto-detalle-section">
+        <div class="producto-detalle-container">
+            <div class="producto-detalle-imagen">
+                <img id="productoImagen" src="" alt="Producto">
+            </div>
+            <div class="producto-detalle-info">
+                <p class="producto-detalle-categoria" id="productoCategoria"></p>
+                <h1 class="producto-detalle-nombre" id="productoNombre"></h1>
+                <p class="producto-detalle-material" id="productoMaterial"></p>
+                <p class="producto-detalle-precio" id="productoPrecio"></p>
+                
+                <div class="producto-detalle-opciones">
+                    <div class="opcion-grupo">
+                        <span class="opcion-label">Color</span>
+                        <div class="opcion-colores" id="colorescontainer"></div>
+                    </div>
+                    <div class="opcion-grupo">
+                        <span class="opcion-label">Talla</span>
+                        <div class="opcion-tallas" id="tallasContainer"></div>
+                    </div>
+                    <div class="opcion-grupo">
+                        <span class="opcion-label">Cantidad</span>
+                        <div class="cantidad-control">
+                            <button class="cantidad-btn" onclick="cambiarCantidad(-1)">-</button>
+                            <input type="number" class="cantidad-input" id="cantidad" value="1" min="1" readonly>
+                            <button class="cantidad-btn" onclick="cambiarCantidad(1)">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="producto-detalle-acciones">
+                    <button class="btn btn-primary" onclick="agregarAlCarrito()">
+                        AÑADIR AL CARRITO
+                    </button>
+                </div>
+
+                <div class="producto-detalle-vendedor">
+                    <div class="vendedor-info">
+                        <img id="vendedorLogo" src="" alt="Vendedor" class="vendedor-logo">
+                        <div>
+                            <p class="vendedor-nombre" id="vendedorNombre"></p>
+                            <p style="font-size: 12px; color: #888;">Vendedor</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="producto-detalle-descripcion">
+                    <h3 class="descripcion-titulo">Descripción</h3>
+                    <p class="descripcion-texto" id="productoDescripcion"></p>
+                </div>
+
+                <div class="producto-detalles">
+                    <div class="detalle-item">
+                        <span class="detalle-label">Peso</span>
+                        <span class="detalle-valor" id="productoPeso"></span>
+                    </div>
+                    <div class="detalle-item">
+                        <span class="detalle-label">Dimensiones</span>
+                        <span class="detalle-valor" id="productoDimensiones"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../assets/js/storage.js"></script>
+    <script>
+        let productoActual = null;
+        let colorSeleccionado = '';
+        let tallaSeleccionada = '';
+
+        function cargarProducto() {
+            const params = new URLSearchParams(window.location.search);
+            const productoId = params.get('id');
+            
+            if (!productoId) {
+                window.location.href = 'catalogo.html';
+                return;
+            }
+            
+            productoActual = obtenerProductoPorId(productoId);
+            
+            if (!productoActual) {
+                window.location.href = 'catalogo.html';
+                return;
+            }
+            
+            document.getElementById('productoImagen').src = productoActual.imagen;
+            document.getElementById('productoCategoria').textContent = productoActual.categoria.toUpperCase();
+            document.getElementById('productoNombre').textContent = productoActual.nombre;
+            document.getElementById('productoMaterial').textContent = productoActual.material;
+            document.getElementById('productoDescripcion').textContent = productoActual.descripcion;
+            document.getElementById('productoPeso').textContent = productoActual.peso;
+            document.getElementById('productoDimensiones').textContent = productoActual.dimensiones;
+            
+            const precioHTML = productoActual.precioOriginal 
+                ? `S/ ${productoActual.precio} <del>S/ ${productoActual.precioOriginal}</del>`
+                : `S/ ${productoActual.precio}`;
+            document.getElementById('productoPrecio').innerHTML = precioHTML;
+            
+            const coloresContainer = document.getElementById('colorescontainer');
+            coloresContainer.innerHTML = productoActual.colores.map((color, index) => {
+                const activo = index === 0 ? 'active' : '';
+                if (index === 0) colorSeleccionado = color;
+                return `<div class="opcion-color ${activo}" style="background-color: ${color}; title="${color}" onclick="seleccionarColor(this, '${color}')"></div>`;
+            }).join('');
+            
+            const tallasContainer = document.getElementById('tallasContainer');
+            tallasContainer.innerHTML = productoActual.tallas.map((talla, index) => {
+                const activo = index === 0 ? 'active' : '';
+                if (index === 0) tallaSeleccionada = talla;
+                return `<div class="opcion-talla ${activo}" onclick="seleccionarTalla(this, '${talla}')">${talla}</div>`;
+            }).join('');
+            
+            const vendedor = obtenerVendedorPorId(productoActual.vendedor);
+            if (vendedor) {
+                document.getElementById('vendedorLogo').src = vendedor.logo;
+                document.getElementById('vendedorNombre').textContent = vendedor.nombreTienda;
+            }
+            
+            actualizarContador();
+        }
+
+        function seleccionarColor(elemento, color) {
+            document.querySelectorAll('.opcion-color').forEach(el => el.classList.remove('active'));
+            elemento.classList.add('active');
+            colorSeleccionado = color;
+        }
+
+        function seleccionarTalla(elemento, talla) {
+            document.querySelectorAll('.opcion-talla').forEach(el => el.classList.remove('active'));
+            elemento.classList.add('active');
+            tallaSeleccionada = talla;
+        }
+
+        function cambiarCantidad(cambio) {
+            const input = document.getElementById('cantidad');
+            let valor = parseInt(input.value) + cambio;
+            if (valor < 1) valor = 1;
+            if (valor > productoActual.stock) valor = productoActual.stock;
+            input.value = valor;
+        }
+
+        function agregarAlCarrito() {
+            const cantidad = parseInt(document.getElementById('cantidad').value);
+            const resultado = agregarAlCarrito(productoActual, cantidad, tallaSeleccionada, colorSeleccionado);
+            
+            if (resultado !== false) {
+                alert('Producto añadido al carrito');
+                actualizarContador();
+            }
+        }
+
+        function actualizarContador() {
+            const carrito = obtenerCarrito();
+            const total = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+            document.getElementById('cartCount').textContent = total;
+        }
+
+        document.addEventListener('DOMContentLoaded', cargarProducto);
+    </script>
+<script>document.querySelectorAll(".navbar").forEach(function(nav){window.addEventListener("scroll",function(){if(window.scrollY>50){nav.style.backgroundColor="rgba(26,26,26,0.95)";nav.style.padding="20px 50px"}else{nav.style.backgroundColor="rgba(0,0,0,0.85)";nav.style.padding="25px 50px"}})})</script></body>
+</html>
+

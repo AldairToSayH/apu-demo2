@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Apu Luxury Vendedor</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/vendedor.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="vendedor-page">
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../../image/Logo-Apu-Luxury-dorado-negro.png" alt="APU">
+            </div>
+            
+            <nav class="sidebar-menu">
+                <p class="sidebar-menu-title">Inicio</p>
+                <a href="dashboard.html" class="sidebar-menu-item active"><i class="fas fa-home"></i><span>Inicio</span></a>
+                <a href="estadisticas.html" class="sidebar-menu-item"><i class="fas fa-chart-line"></i><span>Estadísticas</span></a>
+                
+                <p class="sidebar-menu-title">Productos</p>
+                <a href="productos.html" class="sidebar-menu-item"><i class="fas fa-plus-circle"></i><span>Agregar Producto</span></a>
+                <a href="inventario.html" class="sidebar-menu-item"><i class="fas fa-boxes"></i><span>Inventario</span></a>
+                
+                <p class="sidebar-menu-title">Pedidos</p>
+                <a href="pedidos.html" class="sidebar-menu-item"><i class="fas fa-shopping-cart"></i><span>Todos los Pedidos</span><span class="badge">5</span></a>
+                
+                <p class="sidebar-menu-title">Exportación</p>
+                <a href="exportacion.html" class="sidebar-menu-item"><i class="fas fa-shipping-fast"></i><span>Métodos de Envío</span></a>
+                <a href="documentacion.html" class="sidebar-menu-item"><i class="fas fa-file-alt"></i><span>Documentación</span></a>
+                
+                <p class="sidebar-menu-title">Configuración</p>
+                <a href="perfil.html" class="sidebar-menu-item"><i class="fas fa-store"></i><span>Perfil</span></a>
+                <a href="configuracion.html" class="sidebar-menu-item"><i class="fas fa-cog"></i><span>Ajustes</span></a>
+            </nav>
+        </aside>
+        
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left">
+                    <h1 class="header-title">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                    <div class="user-profile">
+                        <img src="https://via.placeholder.com/40" alt="Usuario" class="user-avatar" id="userAvatar">
+                        <div>
+                            <p class="user-name" id="userName">Cargando...</p>
+                            <p class="user-role" id="userRole">Vendedor</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <section class="content-section">
+                <div class="profile-incomplete" id="profileAlert" style="display: none;">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div class="profile-incomplete-text">
+                        <p class="profile-incomplete-title">Perfil incompleto</p>
+                        <p class="profile-incomplete-desc">Completa tu perfil para poder publicar productos</p>
+                    </div>
+                    <a href="perfil.html" class="btn btn-primary" style="padding: 10px 20px;">COMPLETAR</a>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-icon orange"><i class="fas fa-shopping-bag"></i></div>
+                        <p class="stat-card-value" id="pedidosTotal">0</p>
+                        <p class="stat-card-label">Pedidos Totales</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon gold"><i class="fas fa-soles"></i></div>
+                        <p class="stat-card-value" id="ventasTotal">S/ 0</p>
+                        <p class="stat-card-label">Ventas Totales</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon green"><i class="fas fa-box"></i></div>
+                        <p class="stat-card-value" id="productosActivos">0</p>
+                        <p class="stat-card-label">Productos Activos</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon pink"><i class="fas fa-star"></i></div>
+                        <p class="stat-card-value" id="rating">0.0</p>
+                        <p class="stat-card-label">Calificación</p>
+                    </div>
+                </div>
+                
+                <div class="section-header">
+                    <h2 class="section-title">Pedidos Recientes</h2>
+                    <a href="pedidos.html" class="btn-outline-dark" style="padding: 10px 20px;">VER TODOS</a>
+                </div>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Pedido</th>
+                            <th>Cliente</th>
+                            <th>Productos</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pedidosRecientes">
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+    
+    <div class="modal-overlay" id="pedidoModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Detalles del Pedido</h3>
+                <button class="modal-close" onclick="cerrarModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="pedidoDetalle"></div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="cerrarModal()">CERRAR</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../assets/js/storage.js"></script>
+    <script src="../assets/js/vendedor.js"></script>
+</body>
+</html>

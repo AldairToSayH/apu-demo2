@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Apu Luxury</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/comprador.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .checkout-page {
+            background-color: var(--white);
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+        .checkout-header {
+            padding: 25px 50px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .checkout-header h1 {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            color: var(--negro-oscuro);
+        }
+        .checkout-progress {
+            display: flex;
+            gap: 15px;
+            margin-left: auto;
+        }
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #ccc;
+        }
+        .progress-step.active {
+            color: var(--orange);
+            font-weight: 700;
+        }
+        .progress-step.completed {
+            color: var(--negro-oscuro);
+        }
+        .progress-step-num {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: 2px solid currentColor;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 50px;
+        }
+        .checkout-formas {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        .checkout-seccion {
+            background-color: var(--crema);
+            border-radius: 16px;
+            padding: 30px;
+        }
+        .seccion-titulo {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--negro-oscuro);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .seccion-titulo-num {
+            width: 30px;
+            height: 30px;
+            background-color: var(--negro-oscuro);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        .checkout-form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .checkout-form-group {
+            margin-bottom: 15px;
+        }
+        .checkout-form-label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--negro-oscuro);
+            margin-bottom: 6px;
+        }
+        .checkout-form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 13px;
+            background-color: var(--white);
+            color: var(--negro-oscuro);
+        }
+        .checkout-form-input:focus {
+            outline: none;
+            border-color: var(--orange);
+        }
+        .opciones-pago {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .opcion-pago {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .opcion-pago:hover {
+            border-color: #999;
+        }
+        .opcion-pago.active {
+            border-color: var(--orange);
+            background-color: rgba(230, 126, 34, 0.05);
+        }
+        .opcion-pago input {
+            display: none;
+        }
+        .opcion-pago-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--white);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--negro-oscuro);
+        }
+        .opcion-pago-info h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--negro-oscuro);
+        }
+        .opcion-pago-info p {
+            font-size: 12px;
+            color: #888;
+        }
+        .checkout-resumen {
+            background-color: var(--crema);
+            border-radius: 16px;
+            padding: 30px;
+            height: fit-content;
+        }
+        .resumen-productos {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        .resumen-producto {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .resumen-producto-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .resumen-producto-info {
+            flex: 1;
+        }
+        .resumen-producto-nombre {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--negro-oscuro);
+        }
+        .resumen-producto-detalle {
+            font-size: 11px;
+            color: #888;
+        }
+        .resumen-producto-precio {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--negro-oscuro);
+        }
+        .resumen-linea {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 13px;
+        }
+        .resumen-label {
+            color: #666;
+        }
+        .resumen-valor {
+            font-weight: 600;
+            color: var(--negro-oscuro);
+        }
+        .resumen-total {
+            border-top: 2px solid #ddd;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+        .resumen-total .resumen-label {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--negro-oscuro);
+        }
+        .resumen-total .resumen-valor {
+            font-size: 20px;
+        }
+        .btn-checkout {
+            width: 100%;
+            padding: 16px;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar sticky">
+        <div class="logo">
+            <a href="../index.html">
+                <img src="../image/Logo-Apu-Luxury-dorado-negro.png" alt="Apu Luxury" class="logo-img">
+            </a>
+        </div>
+    </nav>
+
+    <div class="checkout-page">
+        <div class="checkout-header">
+            <h1>Checkout</h1>
+            <div class="checkout-progress">
+                <span class="progress-step completed"><span class="progress-step-num">1</span> Carrito</span>
+                <span class="progress-step active"><span class="progress-step-num">2</span> Datos</span>
+                <span class="progress-step"><span class="progress-step-num">3</span> Pago</span>
+            </div>
+        </div>
+
+        <div class="checkout-container">
+            <div class="checkout-formas">
+                <div class="checkout-seccion">
+                    <h3 class="seccion-titulo"><span class="seccion-titulo-num">1</span> Información del Cliente</h3>
+                    <div class="checkout-form-row">
+                        <div class="checkout-form-group">
+                            <label class="checkout-form-label">Nombre Completo</label>
+                            <input type="text" id="nombre" class="checkout-form-input" placeholder="Ana María Quispe">
+                        </div>
+                        <div class="checkout-form-group">
+                            <label class="checkout-form-label">Teléfono</label>
+                            <input type="tel" id="telefono" class="checkout-form-input" placeholder="+51 984 123 456">
+                        </div>
+                    </div>
+                    <div class="checkout-form-group">
+                        <label class="checkout-form-label">Correo Electrónico</label>
+                        <input type="email" id="email" class="checkout-form-input" placeholder="ana@email.com">
+                    </div>
+                </div>
+
+                <div class="checkout-seccion">
+                    <h3 class="seccion-titulo"><span class="seccion-titulo-num">2</span> Dirección de Envío</h3>
+                    <div class="checkout-form-group">
+                        <label class="checkout-form-label">Dirección</label>
+                        <input type="text" id="direccion" class="checkout-form-input" placeholder="Av. Ejercito 456, Dpto 301">
+                    </div>
+                    <div class="checkout-form-row">
+                        <div class="checkout-form-group">
+                            <label class="checkout-form-label">Región</label>
+                            <select id="region" class="checkout-form-input">
+                                <option value="">Seleccionar</option>
+                                <option value="Lima">Lima</option>
+                                <option value="Cusco">Cusco</option>
+                                <option value="Arequipa">Arequipa</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="checkout-form-group">
+                            <label class="checkout-form-label">Ciudad</label>
+                            <input type="text" id="ciudad" class="checkout-form-input" placeholder="Lima">
+                        </div>
+                    </div>
+                    <div class="checkout-form-row">
+                        <div class="checkout-form-group">
+                            <label class="checkout-form-label">Distrito</label>
+                            <input type="text" id="distrito" class="checkout-form-input" placeholder="Miraflores">
+                        </div>
+                        <div class="checkout-form-group">
+                            <label class="checkout-form-label">Código Postal</label>
+                            <input type="text" id="codigoPostal" class="checkout-form-input" placeholder="15074">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checkout-seccion">
+                    <h3 class="seccion-titulo"><span class="seccion-titulo-num">3</span> Método de Pago</h3>
+                    <div class="opciones-pago">
+                        <label class="opcion-pago active" onclick="seleccionarPago(this, 'tarjeta')">
+                            <input type="radio" name="pago" value="tarjeta" checked>
+                            <div class="opcion-pago-icon"><i class="fas fa-credit-card"></i></div>
+                            <div class="opcion-pago-info">
+                                <h4>Tarjeta de Crédito/Débito</h4>
+                                <p>Visa, Mastercard, American Express</p>
+                            </div>
+                        </label>
+                        <label class="opcion-pago" onclick="seleccionarPago(this, 'paypal')">
+                            <input type="radio" name="pago" value="paypal">
+                            <div class="opcion-pago-icon"><i class="fab fa-paypal"></i></div>
+                            <div class="opcion-pago-info">
+                                <h4>PayPal</h4>
+                                <p>Pago rápido y seguro</p>
+                            </div>
+                        </label>
+                        <label class="opcion-pago" onclick="seleccionarPago(this, 'transferencia')">
+                            <input type="radio" name="pago" value="transferencia">
+                            <div class="opcion-pago-icon"><i class="fas fa-university"></i></div>
+                            <div class="opcion-pago-info">
+                                <h4>Transferencia Bancaria</h4>
+                                <p>BCP, Interbank, BBVA</p>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <div id="datos-tarjeta" style="margin-top: 20px;">
+                        <div class="checkout-form-group">
+                            <label class="checkout-form-label">Número de Tarjeta</label>
+                            <input type="text" id="numeroTarjeta" class="checkout-form-input" placeholder="4242 4242 4242 4242" maxlength="19">
+                        </div>
+                        <div class="checkout-form-row">
+                            <div class="checkout-form-group">
+                                <label class="checkout-form-label">Fecha de Vencimiento</label>
+                                <input type="text" id="fechaVencimiento" class="checkout-form-input" placeholder="MM/AA" maxlength="5">
+                            </div>
+                            <div class="checkout-form-group">
+                                <label class="checkout-form-label">CVV</label>
+                                <input type="text" id="cvv" class="checkout-form-input" placeholder="123" maxlength="4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary btn-checkout" onclick="realizarPedido()">
+                    REALIZAR PEDIDO
+                </button>
+            </div>
+
+            <div class="checkout-resumen">
+                <h3 class="resumen-titulo" style="margin-bottom: 15px;">Resumen del Pedido</h3>
+                <div class="resumen-productos" id="resumenProductos"></div>
+                <div class="resumen-linea">
+                    <span class="resumen-label">Subtotal</span>
+                    <span class="resumen-valor" id="subtotal">S/ 0</span>
+                </div>
+                <div class="resumen-linea">
+                    <span class="resumen-label">Envío</span>
+                    <span class="resumen-valor" id="envio">S/ 15</span>
+                </div>
+                <div class="resumen-linea resumen-total">
+                    <span class="resumen-label">Total</span>
+                    <span class="resumen-valor" id="total">S/ 0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/storage.js"></script>
+    <script>
+        let metodoPagoSeleccionado = 'tarjeta';
+
+        function cargarResumen() {
+            const items = obtenerCarrito();
+            const container = document.getElementById('resumenProductos');
+            
+            container.innerHTML = items.map(item => `
+                <div class="resumen-producto">
+                    <img src="${item.imagen}" alt="${item.nombre}" class="resumen-producto-img">
+                    <div class="resumen-producto-info">
+                        <h4 class="resumen-producto-nombre">${item.nombre}</h4>
+                        <p class="resumen-producto-detalle">${item.talla} | ${item.color} | Cant: ${item.cantidad}</p>
+                    </div>
+                    <p class="resumen-producto-precio">S/ ${item.precio * item.cantidad}</p>
+                </div>
+            `).join('');
+            
+            actualizarTotales();
+        }
+
+        function actualizarTotales() {
+            const subtotal = calcularTotalCarrito();
+            const envio = subtotal > 0 ? 15 : 0;
+            const total = subtotal + envio;
+            
+            document.getElementById('subtotal').textContent = `S/ ${subtotal}`;
+            document.getElementById('envio').textContent = `S/ ${envio}`;
+            document.getElementById('total').textContent = `S/ ${total}`;
+        }
+
+        function seleccionarPago(elemento, metodo) {
+            document.querySelectorAll('.opcion-pago').forEach(el => el.classList.remove('active'));
+            elemento.classList.add('active');
+            metodoPagoSeleccionado = metodo;
+            
+            const datosTarjeta = document.getElementById('datos-tarjeta');
+            datosTarjeta.style.display = metodo === 'tarjeta' ? 'block' : 'none';
+        }
+
+        function realizarPedido() {
+            const datos = {
+                nombre: document.getElementById('nombre').value.trim(),
+                telefono: document.getElementById('telefono').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                direccion: document.getElementById('direccion').value.trim(),
+                region: document.getElementById('region').value,
+                ciudad: document.getElementById('ciudad').value.trim(),
+                distrito: document.getElementById('distrito').value.trim(),
+                codigoPostal: document.getElementById('codigoPostal').value.trim(),
+                envio: 15,
+                metodoPago: metodoPagoSeleccionado,
+                numeroTarjeta: document.getElementById('numeroTarjeta').value.trim(),
+                comprador: obtenerSesion()?.id || 'usr_001'
+            };
+            
+            if (!datos.nombre || !datos.telefono || !datos.email || !datos.direccion || !datos.ciudad) {
+                alert('Por favor completa todos los campos requeridos');
+                return;
+            }
+            
+            if (metodoPagoSeleccionado === 'tarjeta' && datos.numeroTarjeta.length < 16) {
+                alert('Por favor ingresa un número de tarjeta válido');
+                return;
+            }
+            
+            const pedido = crearPedido(datos);
+            
+            window.location.href = `confirmacion.html?pedido=${pedido.id}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', cargarResumen);
+    </script>
+<script>document.querySelectorAll(".navbar").forEach(function(nav){window.addEventListener("scroll",function(){if(window.scrollY>50){nav.style.backgroundColor="rgba(26,26,26,0.95)";nav.style.padding="20px 50px"}else{nav.style.backgroundColor="rgba(0,0,0,0.85)";nav.style.padding="25px 50px"}})})</script></body>
+</html>
+

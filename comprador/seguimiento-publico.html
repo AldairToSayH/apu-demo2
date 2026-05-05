@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguimiento - Apu Luxury</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/comprador.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .seguimiento-page {
+            background-color: var(--white);
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+        .seguimiento-header {
+            background-color: var(--negro-oscuro);
+            padding: 50px;
+            text-align: center;
+            color: var(--white);
+        }
+        .seguimiento-header h1 {
+            font-family: var(--font-serif);
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .seguimiento-header p {
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+        .seguimiento-buscar {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+        }
+        .seguimiento-buscar input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        .seguimiento-buscar button {
+            padding: 15px 30px;
+            background-color: var(--orange);
+            border: none;
+            border-radius: 8px;
+            color: var(--white);
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .seguimiento-resultado {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+        .seguimiento-card {
+            background-color: var(--crema);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+        .seguimiento-estado {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .estado-actual {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--negro-oscuro);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .estado-descripcion {
+            font-size: 14px;
+            color: #666;
+        }
+        .seguimiento-linea-tiempo {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 40px 0;
+        }
+        .seguimiento-linea-tiempo::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50px;
+            right: 50px;
+            height: 3px;
+            background-color: #ddd;
+            z-index: 0;
+        }
+        .seguimiento-paso {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .seguimiento-paso-circulo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+        .seguimiento-paso.completo .seguimiento-paso-circulo {
+            background-color: #2ecc71;
+        }
+        .seguimiento-paso.activo .seguimiento-paso-circulo {
+            background-color: var(--orange);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(230, 126, 34, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(230, 126, 34, 0); }
+        }
+        .seguimiento-paso-texto {
+            font-size: 11px;
+            color: #888;
+            text-align: center;
+            max-width: 80px;
+        }
+        .seguimiento-paso.completo .seguimiento-paso-texto,
+        .seguimiento-paso.activo .seguimiento-paso-texto {
+            color: var(--negro-oscuro);
+            font-weight: 700;
+        }
+        .seguimiento-detalles {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .seguimiento-info-seccion {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+        }
+        .info-seccion-titulo {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--negro-oscuro);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .info-linea {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            font-size: 13px;
+        }
+        .info-label {
+            color: #888;
+        }
+        .info-valor {
+            font-weight: 600;
+            color: var(--negro-oscuro);
+        }
+        .productos-lista {
+            margin-top: 15px;
+        }
+        .producto-item {
+            display: flex;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        .producto-item:last-child {
+            border-bottom: none;
+        }
+        .producto-item-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        .producto-item-info {
+            flex: 1;
+        }
+        .producto-item-nombre {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--negro-oscuro);
+        }
+        .producto-item-detalle {
+            font-size: 11px;
+            color: #888;
+        }
+        .no-encontrado {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .no-encontrado-icono {
+            font-size: 60px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        .no-encontrado h2 {
+            font-size: 24px;
+            color: var(--negro-oscuro);
+            margin-bottom: 10px;
+        }
+        .no-encontrado p {
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar sticky">
+        <div class="logo">
+            <a href="../index.html">
+                <img src="../image/Logo-Apu-Luxury-dorado-negro.png" alt="Apu Luxury" class="logo-img">
+            </a>
+        </div>
+        <div class="nav-menu">
+            <ul>
+                <li><a href="catalogo.html">CATÁLOGO</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="seguimiento-page">
+        <div class="seguimiento-header">
+            <h1>Seguimiento de Pedido</h1>
+            <p>Ingresa tu número de orden o código de seguimiento</p>
+            <div class="seguimiento-buscar">
+                <input type="text" id="buscarInput" placeholder="APL-2026-0001">
+                <button onclick="buscarPedido()">BUSCAR</button>
+            </div>
+        </div>
+
+        <div class="seguimiento-resultado" id="resultado">
+        </div>
+    </div>
+
+    <script src="../assets/js/storage.js"></script>
+    <script>
+        const estadosOrden = ['origen', 'transito', 'destino', 'entregado'];
+        
+        function buscarPedido() {
+            const termino = document.getElementById('buscarInput').value.trim().toUpperCase();
+            
+            if (!termino) {
+                alert('Ingresa un número de orden o código de seguimiento');
+                return;
+            }
+            
+            const pedido = buscarPedidoPublico(termino, termino);
+            
+            if (!pedido) {
+                document.getElementById('resultado').innerHTML = `
+                    <div class="no-encontrado">
+                        <div class="no-encontrado-icono"><i class="fas fa-search"></i></div>
+                        <h2>Pedido no encontrado</h2>
+                        <p>Verifica el número de orden o código de seguimiento</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            renderizarSeguimiento(pedido);
+        }
+
+        function renderizarSeguimiento(pedido) {
+            const estadoIndex = estadosOrden.indexOf(pedido.estado);
+            const nombreEstado = {
+                'origen': 'En Origen',
+                'transito': 'En Tránsito',
+                'destino': 'En Destino',
+                'entregado': 'Entregado'
+            };
+            
+            const descripcionEstado = {
+                'origen': 'Tu pedido ha sido confirmado y espera ser preparado',
+                'transito': 'Tu pedido está en camino',
+                'destino': 'Tu pedido llegó a la ciudad de destino',
+                'entregado': 'Tu pedido ha sido entregado'
+            };
+            
+            let pasosHTML = '';
+            estadosOrden.forEach((estado, index) => {
+                let clase = '';
+                if (index < estadoIndex) clase = 'completo';
+                else if (index === estadoIndex) clase = 'activo';
+                
+                pasosHTML += `
+                    <div class="seguimiento-paso ${clase}">
+                        <div class="seguimiento-paso-circulo">
+                            <i class="fas ${index <= estadoIndex ? 'fa-check' : 'fa-circle'}"></i>
+                        </div>
+                        <span class="seguimiento-paso-texto">${nombreEstado[estado]}</span>
+                    </div>
+                `;
+            });
+            
+            document.getElementById('resultado').innerHTML = `
+                <div class="seguimiento-card">
+                    <div class="seguimiento-estado">
+                        <h2 class="estado-actual">${nombreEstado[pedido.estado]}</h2>
+                        <p class="estado-descripcion">${descripcionEstado[pedido.estado]}</p>
+                    </div>
+                    
+                    <div class="seguimiento-linea-tiempo">
+                        ${pasosHTML}
+                    </div>
+                    
+                    <div class="seguimiento-detalles">
+                        <div class="seguimiento-info-seccion">
+                            <h3 class="info-seccion-titulo">Información del Pedido</h3>
+                            <div class="info-linea">
+                                <span class="info-label">Número de Orden</span>
+                                <span class="info-valor">${pedido.numeroOrden}</span>
+                            </div>
+                            <div class="info-linea">
+                                <span class="info-label">Código de Seguimiento</span>
+                                <span class="info-valor">${pedido.codigoSeguimiento}</span>
+                            </div>
+                            <div class="info-linea">
+                                <span class="info-label">Fecha del Pedido</span>
+                                <span class="info-valor">${pedido.fechaPedido}</span>
+                            </div>
+                            <div class="info-linea">
+                                <span class="info-label">Fecha Estimada</span>
+                                <span class="info-valor">${pedido.fechaEstimada || 'Pendiente'}</span>
+                            </div>
+                            <div class="info-linea">
+                                <span class="info-label">Vendedor</span>
+                                <span class="info-valor">${pedido.tienda}</span>
+                            </div>
+                            <div class="info-linea">
+                                <span class="info-label">Total</span>
+                                <span class="info-valor">S/ ${pedido.total}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="seguimiento-info-seccion">
+                            <h3 class="info-seccion-titulo">Dirección de Envío</h3>
+                            <div class="info-linea">
+                                <span class="info-label">Cliente</span>
+                                <span class="info-valor">${pedido.cliente.nombre}</span>
+                            </div>
+                            <div class="info-linea">
+                                <span class="info-label">Dirección</span>
+                                <span class="info-valor">${pedido.envio.direccion}</span>
+                            </div>
+                            <div class="info-linea">
+                                <span class="info-label">Ciudad</span>
+                                <span class="info-valor">${pedido.envio.ciudad}</span>
+                            </div>
+                            <div class="info-linea">
+                                <span class="info-label">Distrito</span>
+                                <span class="info-valor">${pedido.envio.distrito}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="seguimiento-info-seccion" style="margin-top: 20px;">
+                        <h3 class="info-seccion-titulo">Productos</h3>
+                        <div class="productos-lista">
+                            ${pedido.productos.map(p => `
+                                <div class="producto-item">
+                                    <img src="${p.imagen}" alt="${p.nombre}" class="producto-item-img">
+                                    <div class="producto-item-info">
+                                        <h4 class="producto-item-nombre">${p.nombre}</h4>
+                                        <p class="producto-item-detalle">Talla: ${p.talla} | Color: ${p.color} | Cant: ${p.cantidad}</p>
+                                    </div>
+                                    <span class="info-valor">S/ ${p.precio * p.cantidad}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const pedidoId = params.get('pedido');
+            
+            if (pedidoId) {
+                document.getElementById('buscarInput').value = pedidoId;
+                buscarPedido();
+            }
+        });
+    </script>
+<script>document.querySelectorAll(".navbar").forEach(function(nav){window.addEventListener("scroll",function(){if(window.scrollY>50){nav.style.backgroundColor="rgba(26,26,26,0.95)";nav.style.padding="20px 50px"}else{nav.style.backgroundColor="rgba(0,0,0,0.85)";nav.style.padding="25px 50px"}})})</script></body>
+</html>
+

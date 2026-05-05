@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Pedidos - Apu Luxury</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/comprador.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .cuenta-page {
+            background-color: var(--white);
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+        .cuenta-header {
+            background-color: var(--negro-oscuro);
+            padding: 40px 50px;
+            color: var(--white);
+        }
+        .cuenta-header h1 {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .cuenta-header p {
+            color: #aaa;
+        }
+        .cuenta-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 50px;
+        }
+        .cuenta-menu {
+            background-color: var(--crema);
+            border-radius: 12px;
+            padding: 20px;
+            height: fit-content;
+        }
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 8px;
+            color: var(--negro-oscuro);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .menu-item:hover,
+        .menu-item.active {
+            background-color: var(--white);
+            color: var(--orange);
+        }
+        .menu-item i {
+            width: 20px;
+        }
+        .cuenta-contenido {
+            min-height: 500px;
+        }
+        .pedidos-tabla {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .pedidos-tabla th {
+            text-align: left;
+            padding: 15px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #eee;
+        }
+        .pedidos-tabla td {
+            padding: 20px 15px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+        .pedido-fila {
+            transition: background-color 0.3s ease;
+        }
+        .pedido-fila:hover {
+            background-color: #fafafa;
+        }
+        .pedido-numero {
+            font-weight: 700;
+            color: var(--negro-oscuro);
+        }
+        .pedido-fecha {
+            color: #888;
+        }
+        .pedido-tienda {
+            color: var(--gold);
+            font-weight: 600;
+        }
+        .pedido-total {
+            font-weight: 700;
+        }
+        .pedido-acciones {
+            display: flex;
+            gap: 10px;
+        }
+        .btn-seguimiento {
+            padding: 8px 16px;
+            background-color: var(--orange);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .btn-ver {
+            padding: 8px 16px;
+            background-color: transparent;
+            color: var(--negro-oscuro);
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .no-pedidos {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .no-pedidos-icono {
+            font-size: 50px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        .no-pedidos h3 {
+            color: var(--negro-oscuro);
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar sticky">
+        <div class="logo">
+            <a href="../index.html">
+                <img src="../image/Logo-Apu-Luxury-dorado-negro.png" alt="Apu Luxury" class="logo-img">
+            </a>
+        </div>
+        <div class="nav-menu">
+            <ul>
+                <li><a href="catalogo.html">CATÁLOGO</a></li>
+            </ul>
+        </div>
+        <div class="nav-icons">
+            <a href="carrito.html" class="cart-icon">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-badge" id="cartCount">0</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="cuenta-page">
+        <div class="cuenta-header">
+            <h1>Mis Pedidos</h1>
+            <p>Historial y seguimiento de tus compras</p>
+        </div>
+
+        <div class="cuenta-container">
+            <div class="cuenta-menu">
+                <a href="mi-cuenta.html" class="menu-item"><i class="fas fa-user"></i> Mi Cuenta</a>
+                <a href="seguimiento-privado.html" class="menu-item active"><i class="fas fa-box"></i> Mis Pedidos</a>
+                <a href="#" class="menu-item"><i class="fas fa-heart"></i> Favoritos</a>
+                <a href="../index.html" onclick="cerrarSesion(); window.location.href='../index.html'; return false;" class="menu-item" id="btnLogout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+            </div>
+
+            <div class="cuenta-contenido">
+                <table class="pedidos-tabla">
+                    <thead>
+                        <tr>
+                            <th>Pedido</th>
+                            <th>Fecha</th>
+                            <th>Tienda</th>
+                            <th>Estado</th>
+                            <th>Total</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pedidosBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/storage.js"></script>
+    <script>
+        function renderizarPedidos() {
+            const sesion = obtenerSesion();
+            const compradorId = sesion?.id || 'usr_001';
+            const pedidos = obtenerPedidosPorComprador(compradorId);
+            const tbody = document.getElementById('pedidosBody');
+            
+            if (pedidos.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6">
+                            <div class="no-pedidos">
+                                <div class="no-pedidos-icono"><i class="fas fa-box-open"></i></div>
+                                <h3>No tienes pedidos aún</h3>
+                                <p>Explora nuestro catálogo y realiza tu primera compra</p>
+                                <a href="catalogo.html" class="btn btn-primary" style="margin-top: 20px;">VER CATÁLOGO</a>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            const estadoClase = {
+                'origen': 'badge-orange',
+                'transito': 'badge-black',
+                'destino': 'badge-gold',
+                'entregado': 'status-badge active'
+            };
+            
+            tbody.innerHTML = pedidos.map(pedido => `
+                <tr class="pedido-fila">
+                    <td>
+                        <div class="pedido-numero">${pedido.numeroOrden}</div>
+                        <div style="font-size: 11px; color: #888;">${pedido.codigoSeguimiento}</div>
+                    </td>
+                    <td class="pedido-fecha">${pedido.fechaPedido}</td>
+                    <td class="pedido-tienda">${pedido.tienda}</td>
+                    <td><span class="status-badge ${estadoClase[pedido.estado]}">${pedido.estado.toUpperCase()}</span></td>
+                    <td class="pedido-total">S/ ${pedido.total}</td>
+                    <td class="pedido-acciones">
+                        <button class="btn-seguimiento" onclick="verSeguimiento('${pedido.codigoSeguimiento}')">
+                            <i class="fas fa-map-marker-alt"></i> Seguimiento
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function verSeguimiento(codigo) {
+            window.location.href = `seguimiento-publico.html?pedido=${codigo}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', renderizarPedidos);
+    </script>
+<script>document.querySelectorAll(".navbar").forEach(function(nav){window.addEventListener("scroll",function(){if(window.scrollY>50){nav.style.backgroundColor="rgba(26,26,26,0.95)";nav.style.padding="20px 50px"}else{nav.style.backgroundColor="rgba(0,0,0,0.85)";nav.style.padding="25px 50px"}})})</script></body>
+</html>
+

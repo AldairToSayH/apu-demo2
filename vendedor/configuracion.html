@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración - Apu Luxury Vendedor</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/vendedor.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="vendedor-page">
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-logo"><img src="../../image/Logo-Apu-Luxury-dorado-negro.png" alt="APU"></div>
+            <nav class="sidebar-menu">
+                <p class="sidebar-menu-title">Inicio</p>
+                <a href="dashboard.html" class="sidebar-menu-item"><i class="fas fa-home"></i><span>Inicio</span></a>
+                <p class="sidebar-menu-title">Configuración</p>
+                <a href="configuracion.html" class="sidebar-menu-item active"><i class="fas fa-cog"></i><span>Ajustes</span></a>
+                <a href="perfil.html" class="sidebar-menu-item"><i class="fas fa-store"></i><span>Perfil</span></a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="top-header"><div class="header-left"><h1 class="header-title">Configuración</h1></div></header>
+            <section class="content-section">
+                <div class="quick-actions" style="grid-template-columns: repeat(2, 1fr);">
+                    <div class="quick-action-card">
+                        <div class="quick-action-icon"><i class="fas fa-credit-card"></i></div>
+                        <h3 class="quick-action-title">Métodos de Pago</h3>
+                        <p class="quick-action-desc">Configurar opciones de pago</p>
+                    </div>
+                    <div class="quick-action-card">
+                        <div class="quick-action-icon"><i class="fas fa-shield-alt"></i></div>
+                        <h3 class="quick-action-title">Seguridad</h3>
+                        <p class="quick-action-desc">Contraseña y verificación</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../assets/js/storage.js"></script>
+    <script src="../assets/js/vendedor.js"></script>
+    <script>document.addEventListener('DOMContentLoaded',cargarVendedor);</script>
+</body>
+</html>

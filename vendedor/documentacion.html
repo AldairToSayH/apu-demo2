@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación - Apu Luxury Vendedor</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/vendedor.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all-min.css">
+</head>
+<body class="vendedor-page">
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-logo"><img src="../../image/Logo-Apu-Luxury-dorado-negro.png" alt="APU"></div>
+            <nav class="sidebar-menu">
+                <p class="sidebar-menu-title">Inicio</p>
+                <a href="dashboard.html" class="sidebar-menu-item"><i class="fas fa-home"></i><span>Inicio</span></a>
+                <p class="sidebar-menu-title">Exportación</p>
+                <a href="exportacion.html" class="sidebar-menu-item"><i class="fas fa-shipping-fast"></i><span>Métodos de Envío</span></a>
+                <a href="documentacion.html" class="sidebar-menu-item active"><i class="fas fa-file-alt"></i><span>Documentación</span></a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="top-header"><div class="header-left"><h1 class="header-title">Documentación</h1></div></header>
+            <section class="content-section">
+                <div class="section-header"><h2 class="section-title">Guías de Exportación</h2></div>
+                <div class="quick-actions" style="grid-template-columns: repeat(3, 1fr);">
+                    <div class="quick-action-card">
+                        <div class="quick-action-icon"><i class="fas fa-file-pdf"></i></div>
+                        <h3 class="quick-action-title">Guía de Envío</h3>
+                        <p class="quick-action-desc">Cómo preparar tus paquetes para envío</p>
+                    </div>
+                    <div class="quick-action-card">
+                        <div class="quick-action-icon"><i class="fas fa-declaration"></i></div>
+                        <h3 class="quick-action-title">Declaración Aduanera</h3>
+                        <p class="quick-action-desc">Formulario de declaración de textiles</p>
+                    </div>
+                    <div class="quick-action-card">
+                        <div class="quick-action-icon"><i class="fas fa-certificate"></i></div>
+                        <h3 class="quick-action-title">Certificados</h3>
+                        <p class="quick-action-desc">Certificados de autenticidad</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../assets/js/storage.js"></script>
+    <script src="../assets/js/vendedor.js"></script>
+    <script>document.addEventListener('DOMContentLoaded',cargarVendedor);</script>
+</body>
+</html>

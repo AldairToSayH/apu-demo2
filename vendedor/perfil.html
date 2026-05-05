@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - Apu Luxury Vendedor</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/vendedor.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="vendedor-page">
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-logo"><img src="../../image/Logo-Apu-Luxury-dorado-negro.png" alt="APU"></div>
+            <nav class="sidebar-menu">
+                <p class="sidebar-menu-title">Inicio</p>
+                <a href="dashboard.html" class="sidebar-menu-item"><i class="fas fa-home"></i><span>Inicio</span></a>
+                <p class="sidebar-menu-title">Productos</p>
+                <a href="productos.html" class="sidebar-menu-item"><i class="fas fa-plus-circle"></i><span>Agregar Producto</span></a>
+                <a href="inventario.html" class="sidebar-menu-item"><i class="fas fa-boxes"></i><span>Inventario</span></a>
+                <p class="sidebar-menu-title">Pedidos</p>
+                <a href="pedidos.html" class="sidebar-menu-item"><i class="fas fa-shopping-cart"></i><span>Pedidos</span></a>
+                <p class="sidebar-menu-title">Configuración</p>
+                <a href="perfil.html" class="sidebar-menu-item active"><i class="fas fa-store"></i><span>Perfil</span></a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-left"><h1 class="header-title">Perfil de Tienda</h1></div>
+                <div class="header-right"><button class="notification-btn"><i class="fas fa-bell"></i></button></div>
+            </header>
+            <section class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">Información de tu Tienda</h2>
+                    <button class="btn btn-primary" onclick="abrirPerfilModal()">EDITAR PERFIL</button>
+                </div>
+                <div class="data-table">
+                    <div id="perfilInfo" style="padding: 20px;"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <div class="modal-overlay" id="perfilModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Editar Perfil</h3>
+                <button class="modal-close" onclick="cerrarModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group"><label class="form-label">Nombre de Tienda</label><input type="text" id="perfilNombreTienda" class="form-input"></div>
+                <div class="form-group"><label class="form-label">Descripción</label><textarea id="perfilDescripcion" class="form-input" rows="3"></textarea></div>
+                <div class="form-group"><label class="form-label">Ubicación</label><input type="text" id="perfilUbicacion" class="form-input" placeholder="Cusco, Perú"></div>
+                <div class="form-group"><label class="form-label">WhatsApp</label><input type="text" id="perfilWhatsapp" class="form-input" placeholder="+51 984 123 456"></div>
+                <div class="form-group"><label class="form-label">Categoría</label>
+                    <select id="perfilCategoria" class="form-select">
+                        <option value="textiles">Textiles</option>
+                        <option value="moda">Moda</option>
+                        <option value="artesania">Artesanía</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-dark" onclick="cerrarModal()">CANCELAR</button>
+                <button class="btn btn-primary" onclick="guardarPerfil()">GUARDAR</button>
+            </div>
+        </div>
+    </div>
+    <script src="../assets/js/storage.js"></script>
+    <script src="../assets/js/vendedor.js"></script>
+    <script>document.addEventListener('DOMContentLoaded',function(){cargarVendedor();if(vendedorActual){document.getElementById('perfilInfo').innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:20px;"><div><p style="color:#888;font-size:12px;">Nombre de Tienda</p><p style="font-weight:700;font-size:16px;">${vendedorActual.nombreTienda||'No configurado'}</p></div><div><p style="color:#888;font-size:12px;">Ubicación</p><p style="font-size:14px;">${vendedorActual.ubicacion||'-'}</p></div><div><p style="color:#888;font-size:12px;">Descripción</p><p style="font-size:14px;">${vendedorActual.descripcion||'-'}</p></div><div><p style="color:#888;font-size:12px;">WhatsApp</p><p style="font-size:14px;">${vendedorActual.whatsapp||'-'}</p></div></div>`;}});</script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+[
+  {
+    "id": "ped_001",
+    "numeroOrden": "APL-2026-0001",
+    "codigoSeguimiento": "APL-TRK-001",
+    "Comprador": "usr_001",
+    "vendedor": "vnd_001",
+    "tienda": "Artes Cusco",
+    "productos": [
+      {
+        "productoId": "prod_001",
+        "nombre": "Poncho Inti Raymi",
+        "cantidad": 1,
+        "precio": 380,
+        "talla": "Única",
+        "color": "rojo"
+      }
+    ],
+    "subtotal": 380,
+    "envio": 15,
+    "total": 395,
+    "estado": "entregado",
+    "estadoHistorial": [
+      {"estado": "origen", "fecha": "2026-01-20", "nota": "Pedido confirmado"},
+      {"estado": "transito", "fecha": "2026-01-22", "nota": "En camino hacia Lima"},
+      {"estado": "destino", "fecha": "2026-01-25", "nota": "Llegó a destino"},
+      {"estado": "entregado", "fecha": "2026-01-26", "nota": "Entregado al cliente"}
+    ],
+    "fechaPedido": "2026-01-20",
+    "fechaEntrega": "2026-01-26",
+    "fechaEstimada": "2026-01-27",
+    "cliente": {
+      "nombre": "Ana María Quispe",
+      "email": "ana@email.com",
+      "telefono": "+51 984 123 456"
+    },
+    "envio": {
+      "direccion": "Av. Ejercito 456, Dpto 301",
+      "distrito": "Miraflores",
+      "ciudad": "Lima",
+      "region": "Lima",
+      "codigoPostal": "15074"
+    },
+    "pago": {
+      "metodo": "Tarjeta de Crédito",
+      "ultimosDigitos": "4242",
+      "estado": "pagado"
+    }
+  },
+  {
+    "id": "ped_002",
+    "numeroOrden": "APL-2026-0002",
+    "codigoSeguimiento": "APL-TRK-002",
+    "comprador": "usr_001",
+    "vendedor": "vnd_002",
+    "tienda": "Andes Craft",
+    "productos": [
+      {
+        "productoId": "prod_003",
+        "nombre": "Bufanda Pachamama",
+        "cantidad": 2,
+        "precio": 95,
+        "talla": "Única",
+        "color": "natural"
+      }
+    ],
+    "subtotal": 190,
+    "envio": 12,
+    "total": 202,
+    "estado": "transito",
+    "estadoHistorial": [
+      {"estado": "origen", "fecha": "2026-01-25", "nota": "Pedido confirmado"},
+      {"estado": "transito", "fecha": "2026-01-27", "nota": "En tránsito"}
+    ],
+    "fechaPedido": "2026-01-25",
+    "fechaEntrega": null,
+    "fechaEstimada": "2026-02-01",
+    "cliente": {
+      "nombre": "Ana María Quispe",
+      "email": "ana@email.com",
+      "telefono": "+51 984 123 456"
+    },
+    "envio": {
+      "direccion": "Av. Ejercito 456, Dpto 301",
+      "distrito": "Miraflores",
+      "ciudad": "Lima",
+      "region": "Lima",
+      "codigoPostal": "15074"
+    },
+    "pago": {
+      "metodo": "PayPal",
+      "ultimosDigitos": "",
+      "estado": "pagado"
+    }
+  },
+  {
+    "id": "ped_003",
+    "numeroOrden": "APL-2026-0003",
+    "codigoSeguimiento": "APL-TRK-003",
+    "comprador": "usr_002",
+    "vendedor": "vnd_001",
+    "tienda": "Artes Cusco",
+    "productos": [
+      {
+        "productoId": "prod_002",
+        "nombre": "Chompa Qori",
+        "cantidad": 1,
+        "precio": 220,
+        "talla": "L",
+        "color": "dorado"
+      },
+      {
+        "productoId": "prod_007",
+        "nombre": "Gorro Chakana",
+        "cantidad": 1,
+        "precio": 65,
+        "talla": "Única",
+        "color": "rojo"
+      }
+    ],
+    "subtotal": 285,
+    "envio": 15,
+    "total": 300,
+    "estado": "origen",
+    "estadoHistorial": [
+      {"estado": "origen", "fecha": "2026-02-01", "nota": "Esperando preparación"}
+    ],
+    "fechaPedido": "2026-02-01",
+    "fechaEntrega": null,
+    "fechaEstimada": "2026-02-08",
+    "cliente": {
+      "nombre": "Carlos Mendoza",
+      "email": "carlos@email.com",
+      "telefono": "+51 987 654 321"
+    },
+    "envio": {
+      "direccion": "Jr. Lima 234",
+      "distrito": "Cercado",
+      "ciudad": "Cusco",
+      "region": "Cusco",
+      "codigoPostal": "08002"
+    },
+    "pago": {
+      "metodo": "Transferencia",
+      "ultimosDigitos": "",
+      "estado": "pendiente"
+    }
+  }
+]

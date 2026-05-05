@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito - Apu Luxury</title>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/comprador.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .carrito-page {
+            background-color: var(--white);
+            min-height: 100vh;
+            padding-top: 100px;
+        }
+        .carrito-header {
+            padding: 30px 50px;
+            border-bottom: 1px solid #eee;
+        }
+        .carrito-header h1 {
+            font-family: var(--font-serif);
+            font-size: 32px;
+            color: var(--negro-oscuro);
+        }
+        .carrito-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 50px;
+        }
+        .carrito-items {
+            flex: 1;
+        }
+        .carrito-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .carrito-item-imagen {
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+        .carrito-item-info {
+            flex: 1;
+        }
+        .carrito-item-nombre {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--negro-oscuro);
+            margin-bottom: 5px;
+        }
+        .carrito-item-tienda {
+            font-size: 12px;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+        .carrito-item-opciones {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 15px;
+        }
+        .carrito-item-precio {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--negro-oscuro);
+        }
+        .carrito-item-acciones {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+        }
+        .cantidad-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .cantidad-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ddd;
+            background-color: var(--white);
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .cantidad-input {
+            width: 50px;
+            height: 30px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        .eliminar-btn {
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .eliminar-btn:hover {
+            color: #e74c3c;
+        }
+        .carrito-resumen {
+            background-color: var(--crema);
+            border-radius: 16px;
+            padding: 30px;
+            height: fit-content;
+        }
+        .resumen-titulo {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--negro-oscuro);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .resumen-linea {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .resumen-label {
+            color: #666;
+        }
+        .resumen-valor {
+            font-weight: 600;
+            color: var(--negro-oscuro);
+        }
+        .resumen-total {
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            margin-top: 10px;
+        }
+        .resumen-total .resumen-label {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--negro-oscuro);
+        }
+        .resumen-total .resumen-valor {
+            font-size: 20px;
+        }
+        .carrito-vacio {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        .carrito-vacio-icon {
+            font-size: 60px;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        .carrito-vacio h2 {
+            font-size: 24px;
+            color: var(--negro-oscuro);
+            margin-bottom: 10px;
+        }
+        .carrito-vacio p {
+            color: #888;
+            margin-bottom: 25px;
+        }
+        @media (max-width: 768px) {
+            .carrito-container {
+                grid-template-columns: 1fr;
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar sticky">
+        <div class="logo">
+            <a href="../index.html">
+                <img src="../image/Logo-Apu-Luxury-dorado-negro.png" alt="Apu Luxury" class="logo-img">
+            </a>
+        </div>
+        <div class="nav-menu">
+            <ul>
+                <li><a href="catalogo.html">CATÁLOGO</a></li>
+            </ul>
+        </div>
+        <div class="nav-icons">
+            <a href="carrito.html" class="cart-icon">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-badge" id="cartCount">0</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="carrito-page">
+        <div class="carrito-header">
+            <h1>Mi Carrito</h1>
+        </div>
+
+        <div class="carrito-container">
+            <div class="carrito-items" id="carritoItems"></div>
+
+            <div class="carrito-resumen">
+                <h2 class="resumen-titulo">Resumen del Pedido</h2>
+                <div class="resumen-linea">
+                    <span class="resumen-label">Subtotal</span>
+                    <span class="resumen-valor" id="subtotal">S/ 0</span>
+                </div>
+                <div class="resumen-linea">
+                    <span class="resumen-label">Envío estimado</span>
+                    <span class="resumen-valor" id="envio">S/ 15</span>
+                </div>
+                <div class="resumen-linea resumen-total">
+                    <span class="resumen-label">Total</span>
+                    <span class="resumen-valor" id="total">S/ 0</span>
+                </div>
+                <button class="btn btn-primary" style="width: 100%; margin-top: 25px; padding: 16px;" onclick="irAPago()">
+                    PROCEDER AL PAGO
+                </button>
+                <a href="catalogo.html" class="btn-outline-dark" style="display: block; text-align: center; margin-top: 15px; padding: 14px;">
+                    SEGUIR COMPRANDO
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/storage.js"></script>
+    <script>
+        function renderizarCarrito() {
+            const items = obtenerCarrito();
+            const container = document.getElementById('carritoItems');
+            
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="carrito-vacio">
+                        <div class="carrito-vacio-icon"><i class="fas fa-shopping-bag"></i></div>
+                        <h2>Tu carrito está vacío</h2>
+                        <p>Explora nuestro catálogo y encuentra la prenda perfecta</p>
+                        <a href="catalogo.html" class="btn btn-primary">VER CATÁLOGO</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = items.map(item => `
+                <div class="carrito-item">
+                    <img src="${item.imagen}" alt="${item.nombre}" class="carrito-item-imagen">
+                    <div class="carrito-item-info">
+                        <h3 class="carrito-item-nombre">${item.nombre}</h3>
+                        <p class="carrito-item-tienda">${item.tienda}</p>
+                        <p class="carrito-item-opciones">Talla: ${item.talla} | Color: ${item.color}</p>
+                        <p class="carrito-item-precio">S/ ${item.precio}</p>
+                    </div>
+                    <div class="carrito-item-acciones">
+                        <div class="cantidad-control">
+                            <button class="cantidad-btn" onclick="cambiarCantidad('${item.id}', -1)">-</button>
+                            <input type="number" class="cantidad-input" value="${item.cantidad}" readonly>
+                            <button class="cantidad-btn" onclick="cambiarCantidad('${item.id}', 1)">+</button>
+                        </div>
+                        <button class="eliminar-btn" onclick="eliminarItem('${item.id}')">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            actualizarTotales();
+            actualizarContador();
+        }
+
+        function cambiarCantidad(itemId, cambio) {
+            const carrito = obtenerCarrito();
+            const item = carrito.find(i => i.id === itemId);
+            
+            if (item) {
+                const nuevaCantidad = item.cantidad + cambio;
+                if (nuevaCantidad > 0) {
+                    actualizarCantidadCarrito(itemId, nuevaCantidad);
+                }
+            }
+            
+            renderizarCarrito();
+        }
+
+        function eliminarItem(itemId) {
+            eliminarDelCarrito(itemId);
+            renderizarCarrito();
+        }
+
+        function actualizarTotales() {
+            const subtotal = calcularTotalCarrito();
+            const envio = subtotal > 0 ? 15 : 0;
+            const total = subtotal + envio;
+            
+            document.getElementById('subtotal').textContent = `S/ ${subtotal}`;
+            document.getElementById('envio').textContent = `S/ ${envio}`;
+            document.getElementById('total').textContent = `S/ ${total}`;
+        }
+
+        function actualizarContador() {
+            const items = obtenerCarrito();
+            const total = items.reduce((sum, item) => sum + item.cantidad, 0);
+            document.getElementById('cartCount').textContent = total;
+        }
+
+        function irAPago() {
+            const items = obtenerCarrito();
+            if (items.length === 0) {
+                alert('Tu carrito está vacío');
+                return;
+            }
+            window.location.href = 'pago.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', renderizarCarrito);
+    </script>
+<script>document.querySelectorAll(".navbar").forEach(function(nav){window.addEventListener("scroll",function(){if(window.scrollY>50){nav.style.backgroundColor="rgba(26,26,26,0.95)";nav.style.padding="20px 50px"}else{nav.style.backgroundColor="rgba(0,0,0,0.85)";nav.style.padding="25px 50px"}})})</script></body>
+</html>
+
