@@ -172,7 +172,7 @@ function verProducto(productoId) {
 }
 
 function agregarAFavoritos(productoId) {
-    console.log('Agregar a favoritos:', productoId);
+    // Funcionalidad de favoritos
 }
 
 document.addEventListener('DOMContentLoaded', function() {

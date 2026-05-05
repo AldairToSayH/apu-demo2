@@ -206,7 +206,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    if (estaAutenticado()) {
+    const urlActual = window.location.pathname;
+    const esLogin = urlActual.includes('login.html');
+    const esRegistro = urlActual.includes('registro.html');
+    
+    if (estaAutenticado() && (esLogin || esRegistro)) {
         const sesion = obtenerSesion();
         if (sesion && sesion.rol === 'comprador') {
             window.location.href = 'comprador/catalogo.html';

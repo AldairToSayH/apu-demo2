@@ -1,0 +1,6 @@
+| Rol | Email | Password |
+|-----|-------|---------|
+| Comprador | `ana@email.com` | `password123` |
+| Comprador | `carlos@email.com` | `password123` |
+| Vendedor | `elena@artescusco.com` | `password123` |
+| Vendedor | `roberto@andescraft.com` | `password123` |

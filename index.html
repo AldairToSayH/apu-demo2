@@ -36,10 +36,18 @@
 
             <div class="nav-icons">
                 <a href="#"><i class="fas fa-search"></i></a>
-                <a href="login.html"><i class="far fa-user"></i></a>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="#" class="user-icon">
+                        <i class="far fa-user"></i>
+                    </a>
+                    <div class="user-dropdown-menu" id="userMenu">
+                        <a href="login.html"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</a>
+                        <a href="registro.html"><i class="fas fa-user-plus"></i> Crear Cuenta</a>
+                    </div>
+                </div>
                 <a href="comprador/carrito.html" class="cart-icon">
                     <i class="fas fa-shopping-bag"></i>
-                    <span class="cart-badge">0</span>
+                    <span class="cart-badge" id="cartCount">0</span>
                 </a>
             </div>
         </header>
@@ -134,12 +142,12 @@
 
         <div class="products-grid">
 
-            <article class="product-card">
+            <article class="product-card" data-id="prod_001">
                 <div class="product-img-wrapper">
                     <span class="product-badge badge-black">BESTSELLER</span>
                     <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                     <img src="image/chica-joven-poncho-andino-rojo.jpg" alt="Poncho Inti Raymi" class="product-img">
-                    <button class="add-to-cart-btn">AÑADIR AL CARRITO</button>
+                    <button class="add-to-cart-btn" onclick="agregarProductoRapido('prod_001', 1, 'Única', 'rojo')">AÑADIR AL CARRITO</button>
                 </div>
                 <div class="product-info">
                     <span class="product-category">ABRIGOS & PONCHOS</span>
@@ -149,11 +157,11 @@
                 </div>
             </article>
 
-            <article class="product-card">
+            <article class="product-card" data-id="prod_002">
                 <div class="product-img-wrapper">
                     <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                     <img src="image/chica-joven-asiatica-polera-lana.jpg" alt="Chompa Qori" class="product-img">
-                    <button class="add-to-cart-btn">AÑADIR AL CARRITO</button>
+                    <button class="add-to-cart-btn" onclick="agregarProductoRapido('prod_002', 1, 'M', 'dorado')">AÑADIR AL CARRITO</button>
                 </div>
                 <div class="product-info">
                     <span class="product-category">CHOMPAS & SWEATERS</span>
@@ -163,12 +171,12 @@
                 </div>
             </article>
 
-            <article class="product-card">
+            <article class="product-card" data-id="prod_003">
                 <div class="product-img-wrapper">
                     <span class="product-badge badge-orange">NUEVO</span>
                     <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                     <img src="image/poncho-andino-rojo-blanco.jpg" alt="Bufanda Pachamama" class="product-img">
-                    <button class="add-to-cart-btn">AÑADIR AL CARRITO</button>
+                    <button class="add-to-cart-btn" onclick="agregarProductoRapido('prod_003', 1, 'Única', 'natural')">AÑADIR AL CARRITO</button>
                 </div>
                 <div class="product-info">
                     <span class="product-category">ACCESORIOS</span>
@@ -178,12 +186,12 @@
                 </div>
             </article>
 
-            <article class="product-card">
+            <article class="product-card" data-id="prod_004">
                 <div class="product-img-wrapper">
                     <span class="product-badge badge-pink">SALE</span>
                     <button class="wishlist-btn"><i class="far fa-heart"></i></button>
                     <img src="image/chica-vestido-rojo.jpg" alt="Vestido Saqsaywaman" class="product-img">
-                    <button class="add-to-cart-btn">AÑADIR AL CARRITO</button>
+                    <button class="add-to-cart-btn" onclick="agregarProductoRapido('prod_004', 1, 'M', 'rojo')">AÑADIR AL CARRITO</button>
                 </div>
                 <div class="product-info">
                     <span class="product-category">VESTIDOS & FALDAS</span>
@@ -441,6 +449,24 @@
     <script src="assets/js/storage.js"></script>
     <script src="assets/js/auth.js"></script>
     <script>
+        function agregarProductoRapido(productoId, cantidad, talla, color) {
+            const producto = obtenerProductoPorId(productoId);
+            if (producto) {
+                agregarAlCarrito(producto, cantidad, talla, color);
+                actualizarContador();
+                alert('Producto añadido al carrito');
+            } else {
+                alert('Producto no encontrado');
+            }
+        }
+        
+        function actualizarContador() {
+            const carrito = obtenerCarrito();
+            const total = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+            const badge = document.getElementById('cartCount');
+            if (badge) badge.textContent = total;
+        }
+        
         document.addEventListener('DOMContentLoaded', function() {
             const navbar = document.querySelector('.navbar.sticky');
             window.addEventListener('scroll', function() {
